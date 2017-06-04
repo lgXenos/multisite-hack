@@ -2,6 +2,7 @@ Options FollowSymLinks
 AddDefaultCharset utf-8
 RewriteEngine On
 
+
 # Don't loop: https://habrahabr.ru/post/75885/
 RewriteCond %{ENV:REDIRECT_STATUS} !^$
 RewriteRule .* - [L]
@@ -15,4 +16,7 @@ RewriteRule .* /site1/$1 [L,NC,QSA]
 RewriteCond %{HTTP_HOST} ^test2.dev$
 RewriteRule .* /test2/$1 [L,NC,QSA]
 
-RewriteRule .* /forbidden.html [L]
+# if a directory or a file exists, use it directly
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* /na.php [L]
