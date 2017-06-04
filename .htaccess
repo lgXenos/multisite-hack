@@ -1,0 +1,18 @@
+Options FollowSymLinks
+AddDefaultCharset utf-8
+RewriteEngine On
+
+# Don't loop: https://habrahabr.ru/post/75885/
+RewriteCond %{ENV:REDIRECT_STATUS} !^$
+RewriteRule .* - [L]
+
+RewriteCond %{REQUEST_URI} \.(htaccess|htpasswd|svn|git)
+RewriteRule \.(htaccess|htpasswd|svn|git) - [F]
+
+RewriteCond %{HTTP_HOST} ^site1.dev$
+RewriteRule .* /site1/$1 [L,NC,QSA]
+
+RewriteCond %{HTTP_HOST} ^test2.dev$
+RewriteRule .* /test2/$1 [L,NC,QSA]
+
+RewriteRule .* /forbidden.html [L]
