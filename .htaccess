@@ -5,18 +5,18 @@ RewriteEngine On
 
 # Don't loop: https://habrahabr.ru/post/75885/
 RewriteCond %{ENV:REDIRECT_STATUS} !^$
-RewriteRule .* - [L]
+RewriteRule (.*) - [L]
 
 RewriteCond %{REQUEST_URI} \.(htaccess|htpasswd|svn|git)
 RewriteRule \.(htaccess|htpasswd|svn|git) - [F]
 
 RewriteCond %{HTTP_HOST} ^site1.dev$
-RewriteRule .* /site1/$1 [L,NC,QSA]
+RewriteRule (.*) /site1/$1 [L,NC,QSA]
 
 RewriteCond %{HTTP_HOST} ^test2.dev$
-RewriteRule .* /test2/$1 [L,NC,QSA]
+RewriteRule (.*) /test2/$1 [L,NC,QSA]
 
 # if a directory or a file exists, use it directly
 #RewriteCond %{REQUEST_FILENAME} !-f
 #RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule .* /na.php [L]
+RewriteRule (.*) /na.php [L]
